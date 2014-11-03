@@ -1,4 +1,4 @@
-module adder_025(carry_out,sum,a,b,cin);
+module adder(carry_out,sum,a,b,cin);
    input [2:0] a,b;
    input       cin;
    output      carry_out;
