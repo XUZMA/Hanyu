@@ -1,3 +1,5 @@
+`include "mux2x32.v"
+
 module shift_mux(d,sa,right,arith,sh);
    input [31:0] d;
    input [4:0] 	sa;
@@ -7,9 +9,16 @@ module shift_mux(d,sa,right,arith,sh);
    // sign extension according to d[31] and input arith(metic)
    wire 	 a = d[31] & arith;
    wire [15:0] 	 e ={16{a}};
-   parameter z = 16'b0;
+   parameter z = 16'h0000;
    
-   wire [31:0] 	 sd14,sdr4,sdl3,sdr3,sdl2,sdr2,sdl1,sdr1,sdl0,sdr0;
+   wire [31:0] 	 sdl4,sdr4,sdl3,sdr3,sdl2,sdr2,sdl1,sdr1,sdl0,sdr0;
+
+   //
+   // difine the types for inner variables(not the ports)
+   // else cause compile warning like follows:
+   // warning: Port 1 (a0) of mux2x32 expects 32 bits, got 1.
+   //
+   wire [31:0] 	 t4,s4,t3,s3,t2,s2,t1,s1,t0;
 
    // shift left 16-bit
    assign sdl4 = {d[15:0],z};
